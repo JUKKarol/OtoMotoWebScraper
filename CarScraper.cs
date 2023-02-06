@@ -6,23 +6,21 @@ using System.Text.RegularExpressions;
 
 namespace WebScraper_01
 {
-    internal class AutoScraper
+    internal class CarScraper
     {
         private const string BaseUrl = "https://www.otomoto.pl/osobowe/ford/fiesta?search%5Bfilter_enum_generation%5D=gen-mk8-2017&search%5Bfilter_float_price%3Ato%5D=30000&search%5Badvanced_search_expanded%5D=true";
+
+        List<CarModel> carsModels = new List<CarModel>();
 
         public void GetCars()
         {
             var web = new HtmlWeb();
             var document = web.Load(BaseUrl);
-            List<CarModel> carsModels = new List<CarModel>();
-
             var CarOffers = document.QuerySelectorAll("main article");
 
             foreach (var CarOffer in CarOffers)
             {
                 var name = CarOffer.QuerySelector("h2").InnerText;
-                //Console.WriteLine(CarOffer.QuerySelectorAll("div")[4].InnerText);
-                int price = 3;
 
                 var lists = CarOffer.QuerySelectorAll("ul");
                 var properties = lists[1].QuerySelectorAll("li");
@@ -34,9 +32,17 @@ namespace WebScraper_01
                 var fuelType = properties[3].InnerText;
 
                 var localization = RemoveSpecialChars(TrimCSS(offerInfo[0].InnerText));
-
                 var publicated = offerInfo[1].InnerText;
+
                 var href = CarOffer.QuerySelector("h2 a").Attributes["href"].Value;
+                //var carWeb = new HtmlWeb();
+                //var carDocument = carWeb.Load(href);
+                //var price = int.Parse(MileageTrim(carDocument.QuerySelector(".offer-price__number").InnerText));
+
+                var offerScraper = new OfferScraper();
+                var offerModel = offerScraper.GetOffers(href);
+
+                int price = offerModel.Price;
 
                 if (properties[1].InnerText == offerInfo[1].InnerText)
                 {
@@ -46,6 +52,11 @@ namespace WebScraper_01
                 carsModels.Add(new CarModel(name, price, year, mileage, engineSize, fuelType, localization, publicated, href));
             }
 
+            
+        }
+
+        public void ShowCars()
+        {
             foreach (var CarOffer in carsModels)
             {
                 CarOffer.CarInfo();

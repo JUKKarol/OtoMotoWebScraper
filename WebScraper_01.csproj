@@ -52,8 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoScraper.cs" />
+    <Compile Include="CarScraper.cs" />
     <Compile Include="CarModel.cs" />
+    <Compile Include="OfferModel.cs" />
+    <Compile Include="OfferScraper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

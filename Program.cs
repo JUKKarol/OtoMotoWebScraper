@@ -10,8 +10,9 @@ namespace WebScraper_01
     {
         static void Main(string[] args)
         {
-            AutoScraper autoScraper = new AutoScraper();
-            autoScraper.GetCars();
+            CarScraper carScraper = new CarScraper();
+            carScraper.GetCars();
+            carScraper.ShowCars();
             Console.ReadKey();
         }
     }
