@@ -1,0 +1,15 @@
+C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\WebScraper_01.exe.config
+C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\WebScraper_01.exe
+C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\WebScraper_01.pdb
+C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\HtmlAgilityPack.CssSelectors.dll
+C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\HtmlAgilityPack.dll
+C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\HtmlAgilityPack.xml
+C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\HtmlAgilityPack.CssSelectors.pdb
+C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Admin\source\repos\WebScraper_01\obj\Debug\WebScraper_01.csproj.AssemblyReference.cache
+C:\Users\Admin\source\repos\WebScraper_01\obj\Debug\WebScraper_01.csproj.SuggestedBindingRedirects.cache
+C:\Users\Admin\source\repos\WebScraper_01\obj\Debug\WebScraper_01.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\WebScraper_01\obj\Debug\WebScraper_01.csproj.CopyComplete
+C:\Users\Admin\source\repos\WebScraper_01\obj\Debug\WebScraper_01.exe
+C:\Users\Admin\source\repos\WebScraper_01\obj\Debug\WebScraper_01.pdb
