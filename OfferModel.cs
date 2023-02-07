@@ -14,5 +14,10 @@ namespace WebScraper_01
         }
 
         public int Price { get; set; }
+
+        public void OfferInfno()
+        {
+            Console.WriteLine($"Car Price: {Price}");
+        }
     }
 }

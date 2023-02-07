@@ -11,15 +11,23 @@ namespace WebScraper_01
 {
     internal class OfferScraper
     {
-        public OfferModel GetOffers(string link)
+        public void GetOffers(string link, ref List<OfferModel> carsDetailsInfo)
         {
-            var _autoScraper = new CarScraper();
+            int price = 0;
+            try
+            {
+                var _autoScraper = new CarScraper();
 
-            var carWeb = new HtmlWeb();
-            var carDocument = carWeb.Load(link);
-            var price = int.Parse(_autoScraper.MileageTrim(carDocument.QuerySelector(".offer-price__number").InnerText));
+                var carWeb = new HtmlWeb();
+                var carDocument = carWeb.Load(link);
+                price = int.Parse(_autoScraper.MileageTrim(carDocument.QuerySelector(".offer-price__number").InnerText));
+            }
+            catch (Exception)
+            {
+                price = 999;
+            }
 
-            return new OfferModel(price);
+            carsDetailsInfo.Add(new OfferModel(price));
         }
     }
 }

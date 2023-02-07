@@ -10,9 +10,9 @@ namespace WebScraper_01
     {
         private const string BaseUrl = "https://www.otomoto.pl/osobowe/ford/fiesta?search%5Bfilter_enum_generation%5D=gen-mk8-2017&search%5Bfilter_float_price%3Ato%5D=30000&search%5Badvanced_search_expanded%5D=true";
 
-        List<CarModel> carsModels = new List<CarModel>();
+        
 
-        public void GetCars()
+        public void GetCars(ref List<CarModel> carsModels)
         {
             var web = new HtmlWeb();
             var document = web.Load(BaseUrl);
@@ -39,10 +39,10 @@ namespace WebScraper_01
                 //var carDocument = carWeb.Load(href);
                 //var price = int.Parse(MileageTrim(carDocument.QuerySelector(".offer-price__number").InnerText));
 
-                var offerScraper = new OfferScraper();
-                var offerModel = offerScraper.GetOffers(href);
+                //var offerScraper = new OfferScraper();
+                //var offerModel = offerScraper.GetOffers(href);
 
-                int price = offerModel.Price;
+                int price = 3;
 
                 if (properties[1].InnerText == offerInfo[1].InnerText)
                 {
@@ -55,7 +55,7 @@ namespace WebScraper_01
             
         }
 
-        public void ShowCars()
+        public void ShowCars(List<CarModel> carsModels)
         {
             foreach (var CarOffer in carsModels)
             {
