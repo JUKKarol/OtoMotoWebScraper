@@ -13,21 +13,13 @@ namespace WebScraper_01
             List<CarModel> carsBasicInfo = new List<CarModel>();
             List<OfferModel> carsDetailsInfo = new List<OfferModel>();
             CarScraper carScraper = new CarScraper();
+            OfferScraper offerScraper = new OfferScraper();
+
             carScraper.GetCars(ref carsBasicInfo);
-
-            for (int i = 0; i < carsBasicInfo.Count; i++)
-            {
-                OfferScraper offerScraper = new OfferScraper();
-                //Console.WriteLine(carsBasicInfo[i].Link);
-                offerScraper.GetOffers(carsBasicInfo[i].Link, ref carsDetailsInfo);
-                //Console.WriteLine(carsDetailsInfo[i].Price);
-            }
-
-            for (int i = 0; i < carsBasicInfo.Count; i++)
-            {
-                carsDetailsInfo[i].OfferInfno();
-                carsBasicInfo[i].CarInfo();
-            }
+            offerScraper.GetOffers(carsBasicInfo, ref carsDetailsInfo);
+            carScraper.Merge(ref carsBasicInfo, carsDetailsInfo);
+            carScraper.ShowCars(carsBasicInfo);
+            Console.WriteLine($"Liczba aut: {carsBasicInfo.Count} w liście");
 
             Console.ReadKey();
         }

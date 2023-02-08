@@ -11,20 +11,35 @@ namespace WebScraper_01
 {
     internal class OfferScraper
     {
-        public void GetOffers(string link, ref List<OfferModel> carsDetailsInfo)
+        public void GetOffers(List<CarModel> carsBasicInfo, ref List<OfferModel> carsDetailsInfo)
         {
-            int price = 0;
+            for (int i = 0; i < carsBasicInfo.Count; i++)
+            {
+                OfferScraper offerScraper = new OfferScraper();
+
+                offerScraper.GetOffer(carsBasicInfo[i].Link, ref carsDetailsInfo);
+            }
+        }
+
+        public void GetOffer(string link, ref List<OfferModel> carsDetailsInfo)
+        {
+            int price;
             try
             {
-                var _autoScraper = new CarScraper();
-
+                var carScraper = new CarScraper();
                 var carWeb = new HtmlWeb();
                 var carDocument = carWeb.Load(link);
-                price = int.Parse(_autoScraper.MileageTrim(carDocument.QuerySelector(".offer-price__number").InnerText));
+
+                price = int.Parse(carScraper.MileageTrim(carDocument.QuerySelector(".offer-price__number").InnerText));
+                if (carDocument.QuerySelector(".offer-price__currency").InnerText.Contains("EUR"))
+                {
+                    double priceDouble = Math.Round((price*4.8)/100, 0)*100;
+                    price = int.Parse(priceDouble.ToString());
+                }
             }
             catch (Exception)
             {
-                price = 999;
+                price = 0;
             }
 
             carsDetailsInfo.Add(new OfferModel(price));
