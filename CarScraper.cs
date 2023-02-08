@@ -9,7 +9,7 @@ namespace WebScraper_01
 {
     internal class CarScraper
     {
-        private string BaseUrl = "https://www.otomoto.pl/osobowe/mercedes-benz/s-klasa?search%5Bfilter_float_price%3Ato%5D=25000&search%5Border%5D=filter_float_price%3Aasc&search%5Badvanced_search_expanded%5D=true";
+        private string BaseUrl = "https://www.otomoto.pl/osobowe/bmw/seria-3?search%5Bfilter_enum_generation%5D=gen-e46-1998-2007&search%5Border%5D=created_at%3Adesc&search%5Bfilter_float_price%3Ato%5D=25000&search%5Badvanced_search_expanded%5D=true";
 
 
         public void GetCars(ref List<CarModel> carsModels)
@@ -19,16 +19,16 @@ namespace WebScraper_01
             bool isNextPage = true;
             var paginationList = document.QuerySelectorAll(".pagination-list li span");
             int lastPageNumber = 1;
+            int actualPageNumber = 1;
+
             try
             {
                 lastPageNumber = int.Parse(paginationList[paginationList.Count - 1].InnerText);
-
             }
             catch (Exception)
             {
 
             }
-            int actualPageNumber = 1;
 
             while (isNextPage)
             {
@@ -58,7 +58,6 @@ namespace WebScraper_01
 
                     var localization = RemoveSpecialChars(TrimCSS(offerInfo[0].InnerText));
                     var publicated = offerInfo[1].InnerText;
-
                     var href = CarOffer.QuerySelector("h2 a").Attributes["href"].Value;
 
                     int price = 0;
@@ -94,7 +93,6 @@ namespace WebScraper_01
                 var web = new HtmlWeb();
                 string href = BaseUrl + "&page=" + actualPageNumber.ToString();
                 document = web.Load(href);
-                
             }
             catch (Exception)
             {
@@ -154,10 +152,8 @@ namespace WebScraper_01
             }
             catch (Exception)
             {
-
                 return "0";
             }
-            
         }
     }
 }
