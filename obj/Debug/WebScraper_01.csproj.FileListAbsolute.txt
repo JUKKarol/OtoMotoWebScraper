@@ -13,3 +13,7 @@ C:\Users\Admin\source\repos\WebScraper_01\obj\Debug\WebScraper_01.csproj.CoreCom
 C:\Users\Admin\source\repos\WebScraper_01\obj\Debug\WebScraper_01.csproj.CopyComplete
 C:\Users\Admin\source\repos\WebScraper_01\obj\Debug\WebScraper_01.exe
 C:\Users\Admin\source\repos\WebScraper_01\obj\Debug\WebScraper_01.pdb
+C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\selenium-manager\linux\selenium-manager
+C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\selenium-manager\macos\selenium-manager
+C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\selenium-manager\windows\selenium-manager.exe
+C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\WebDriver.dll
