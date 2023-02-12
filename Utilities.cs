@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,14 +18,46 @@ namespace WebScraper_01
             var options = new ChromeOptions();
             options.AddArgument("--headless");
 
-            IWebDriver driver = new ChromeDriver(options);
+            IWebDriver driver = new ChromeDriver(/*options*/);
 
 
             driver.Navigate().GoToUrl("https://www.otomoto.pl");
 
             driver.FindElement(By.XPath("//div[contains(@role, 'alertdialog')]//button[contains(@id, 'accept')]")).Click();
-
             IWebElement submitButton = driver.FindElement(By.XPath("//form//button[@data-testid='submit-btn']"));
+
+            
+            IWebElement bodyTypeButton = driver.FindElement(By.XPath("//form//div[@id='filter_enum_body_type']//button"));
+            bodyTypeButton.Click();
+
+            IWebElement bodyTypeUl = driver.FindElement(By.XPath("//form//div[@id='filter_enum_body_type']//ul"));
+            List<IWebElement> bodyTypeLiList = bodyTypeUl.FindElements(By.XPath("//form//div[@id='filter_enum_body_type']//ul/li")).ToList();
+            bodyTypeLiList.RemoveRange(0, 1);
+            bodyTypeLiList = bodyTypeLiList.Where(m => !m.GetAttribute("innerText").Contains("(0)")).ToList();
+
+            int bodyTypeNumber = 1;
+            foreach (var carBodyType in bodyTypeLiList)
+            {
+                Console.WriteLine($"{bodyTypeNumber}. {carBodyType.Text}");
+                bodyTypeNumber++;
+            }
+
+            while (true)
+            {
+                try
+                {
+                    Console.Write($"Podaj nadwozie (1-{bodyTypeLiList.Count}): ");
+                    int bodyTypeInput = int.Parse(Console.ReadLine());
+                    bodyTypeLiList[bodyTypeInput - 1].Click();
+                    break;
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+            
+
             IWebElement brandButton = driver.FindElement(By.XPath("//form//div[@id='filter_enum_make']//button"));
             brandButton.Click();
 
@@ -138,6 +171,51 @@ namespace WebScraper_01
             driver.Close();
 
             return url;
+        }
+
+        public static string RemoveSpecialChars(string input)
+        {
+            return Regex.Replace(input, @"[<>\(\)\!\?\-_]", string.Empty);
+        }
+
+        public static string TrimCSS(string input)
+        {
+            int index = input.IndexOf("}");
+            if (index == -1) return input;
+
+            char nextChar = input[index + 1];
+            if (Char.IsUpper(nextChar))
+            {
+                return input.Substring(index + 1);
+            }
+            else
+            {
+                return TrimCSS(input.Substring(index + 1));
+            }
+        }
+
+        public static string MileageTrim(string input)
+        {
+            input = input.Trim();
+            input = Regex.Replace(input, @"[^\d]", string.Empty);
+            return input;
+        }
+
+        public static string EngineTrim(string input)
+        {
+            try
+            {
+                input = Regex.Replace(input, @"[^\d]", string.Empty);
+                double inputDouble = double.Parse(input);
+                inputDouble -= 3;
+                inputDouble = inputDouble / 10000;
+                inputDouble = Math.Round(inputDouble, 1);
+                return inputDouble.ToString();
+            }
+            catch (Exception)
+            {
+                return "0";
+            }
         }
 
     }

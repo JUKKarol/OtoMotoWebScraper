@@ -24,13 +24,14 @@ namespace WebScraper_01
         public void GetOffer(string link, ref List<OfferModel> carsDetailsInfo)
         {
             int price;
+
             try
             {
                 var carScraper = new CarScraper();
                 var carWeb = new HtmlWeb();
                 var carDocument = carWeb.Load(link);
 
-                price = int.Parse(carScraper.MileageTrim(carDocument.QuerySelector(".offer-price__number").InnerText));
+                price = int.Parse(Utilities.MileageTrim(carDocument.QuerySelector(".offer-price__number").InnerText));
                 if (carDocument.QuerySelector(".offer-price__currency").InnerText.Contains("EUR"))
                 {
                     double priceDouble = Math.Round((price*4.8)/100, 0)*100;
