@@ -1,9 +1,16 @@
 ﻿using HtmlAgilityPack;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using System.Threading;
+using OpenQA.Selenium.Support.UI;
+
+
+
 
 namespace WebScraper_01
 {
@@ -33,6 +40,8 @@ namespace WebScraper_01
 
             while (isNextPage)
             {
+                document = web.Load(BaseUrl);
+                Console.WriteLine(BaseUrl);
                 var CarOffers = document.QuerySelectorAll("main article");
 
                 foreach (var CarOffer in CarOffers)
@@ -78,8 +87,8 @@ namespace WebScraper_01
                     }
                     
                 }
-                actualPageNumber++;
                 NextPage(ref document, ref isNextPage, lastPageNumber, ref actualPageNumber);
+                actualPageNumber++;
             }
         }
 
@@ -93,20 +102,73 @@ namespace WebScraper_01
 
         public void NextPage(ref HtmlDocument document, ref bool isPageNext, int lastPageNumber, ref int actualPageNumber)
         {
+            //try
+            //{
+            //    if (actualPageNumber > lastPageNumber)
+            //    {
+            //        throw new Exception();
+            //    }
+            //    var web = new HtmlWeb();
+            //    string href = BaseUrl + "&page=" + actualPageNumber.ToString();
+            //    document = web.Load(href);
+            //}
+            //catch (Exception)
+            //{
+            //    isPageNext = false;
+            //}
+
+            var options = new ChromeOptions();
+            options.AddArgument("--headless");
+
+            IWebDriver driver = new ChromeDriver(options);
+            driver.Navigate().GoToUrl(BaseUrl);
+
             try
             {
-                if (actualPageNumber > lastPageNumber)
+                Console.WriteLine("1");
+                Thread.Sleep(1000);
+                if (actualPageNumber >= lastPageNumber)
                 {
                     throw new Exception();
                 }
+                Console.WriteLine("2");
+
+                Thread.Sleep(1000);
+                driver.FindElement(By.XPath("//div[contains(@role, 'alertdialog')]//button[contains(@id, 'accept')]")).Click();
+                Thread.Sleep(1000);
+                Console.WriteLine("3");
+
+                //((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
+                int pixelsFromBottom = 2000;
+                ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight - " + pixelsFromBottom + ")");
+                Thread.Sleep(1000);
+                Console.WriteLine("4");
+                ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight - " + pixelsFromBottom + ")");
+
+                driver.FindElement(By.CssSelector("ul.pagination-list li[title*='Next'] svg")).Click();
+                Thread.Sleep(1000);
+                string url = driver.Url;
+                BaseUrl = url;
+                Thread.Sleep(1000);
+                Console.WriteLine("5");
+
+                driver.Close();
+                Thread.Sleep(1000);
+                Console.WriteLine("6");
+
                 var web = new HtmlWeb();
-                string href = BaseUrl + "&page=" + actualPageNumber.ToString();
-                document = web.Load(href);
+                document = web.Load(url);
+                Console.WriteLine($"Page number: {actualPageNumber}, link: {url}");
+                Console.WriteLine("7");
+
             }
             catch (Exception)
             {
+                driver.Close();
                 isPageNext = false;
             }
+
+
         }
 
         public void ShowCars(List<CarModel> carsModels)

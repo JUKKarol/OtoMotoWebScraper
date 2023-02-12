@@ -25,10 +25,11 @@ namespace WebScraper_01
         {
             int price;
 
+            var carScraper = new CarScraper();
+            var carWeb = new HtmlWeb();
+
             try
             {
-                var carScraper = new CarScraper();
-                var carWeb = new HtmlWeb();
                 var carDocument = carWeb.Load(link);
 
                 price = int.Parse(Utilities.MileageTrim(carDocument.QuerySelector(".offer-price__number").InnerText));
@@ -43,6 +44,7 @@ namespace WebScraper_01
                 price = 0;
             }
 
+            
             carsDetailsInfo.Add(new OfferModel(price));
         }
     }

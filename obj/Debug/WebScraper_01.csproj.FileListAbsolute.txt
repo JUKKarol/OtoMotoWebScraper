@@ -17,3 +17,4 @@ C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\selenium-manager\linux\selen
 C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\selenium-manager\macos\selenium-manager
 C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\selenium-manager\windows\selenium-manager.exe
 C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\WebDriver.dll
+C:\Users\Admin\source\repos\WebScraper_01\bin\Debug\WebDriver.Support.dll
