@@ -102,73 +102,56 @@ namespace WebScraper_01
 
         public void NextPage(ref HtmlDocument document, ref bool isPageNext, int lastPageNumber, ref int actualPageNumber)
         {
-            //try
-            //{
-            //    if (actualPageNumber > lastPageNumber)
-            //    {
-            //        throw new Exception();
-            //    }
-            //    var web = new HtmlWeb();
-            //    string href = BaseUrl + "&page=" + actualPageNumber.ToString();
-            //    document = web.Load(href);
-            //}
-            //catch (Exception)
-            //{
-            //    isPageNext = false;
-            //}
-
-            var options = new ChromeOptions();
-            options.AddArgument("--headless");
-
-            IWebDriver driver = new ChromeDriver(options);
-            driver.Navigate().GoToUrl(BaseUrl);
-
             try
             {
-                Console.WriteLine("1");
                 Thread.Sleep(1000);
                 if (actualPageNumber >= lastPageNumber)
                 {
                     throw new Exception();
                 }
-                Console.WriteLine("2");
 
-                Thread.Sleep(1000);
-                driver.FindElement(By.XPath("//div[contains(@role, 'alertdialog')]//button[contains(@id, 'accept')]")).Click();
-                Thread.Sleep(1000);
-                Console.WriteLine("3");
+                if (actualPageNumber == 1)
+                {
+                    var options = new ChromeOptions();
+                    options.AddArgument("--headless");
 
-                //((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
-                int pixelsFromBottom = 2000;
-                ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight - " + pixelsFromBottom + ")");
-                Thread.Sleep(1000);
-                Console.WriteLine("4");
-                ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight - " + pixelsFromBottom + ")");
+                    IWebDriver driver = new ChromeDriver(/*options*/);
+                    driver.Navigate().GoToUrl(BaseUrl);
 
-                driver.FindElement(By.CssSelector("ul.pagination-list li[title*='Next'] svg")).Click();
-                Thread.Sleep(1000);
-                string url = driver.Url;
-                BaseUrl = url;
-                Thread.Sleep(1000);
-                Console.WriteLine("5");
+                    Thread.Sleep(1000);
+                    driver.FindElement(By.XPath("//div[contains(@role, 'alertdialog')]//button[contains(@id, 'accept')]")).Click();
+                    Thread.Sleep(1000);
 
-                driver.Close();
-                Thread.Sleep(1000);
-                Console.WriteLine("6");
+                    int pixelsFromBottom = 2000;
+                    ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight - " + pixelsFromBottom + ")");
+                    Thread.Sleep(1000);
+                    ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight - " + pixelsFromBottom + ")");
+                    Thread.Sleep(1000);
 
-                var web = new HtmlWeb();
-                document = web.Load(url);
-                Console.WriteLine($"Page number: {actualPageNumber}, link: {url}");
-                Console.WriteLine("7");
+                    driver.FindElement(By.CssSelector("ul.pagination-list li[title*='Next'] svg")).Click();
+                    Thread.Sleep(1000);
+                    string url = driver.Url;
+                    BaseUrl = url;
+                    Thread.Sleep(1000);
 
+                    driver.Close();
+                    Thread.Sleep(1000);
+
+                    var web = new HtmlWeb();
+                    document = web.Load(url);
+                }
+                else
+                {
+                    BaseUrl = BaseUrl.Replace($"page={actualPageNumber}", $"page={actualPageNumber + 1}");
+                    var web = new HtmlWeb();
+                    document = web.Load(BaseUrl);
+                    Console.WriteLine($"Page number: {actualPageNumber}, link: {BaseUrl}");
+                }
             }
             catch (Exception)
             {
-                driver.Close();
                 isPageNext = false;
             }
-
-
         }
 
         public void ShowCars(List<CarModel> carsModels)
