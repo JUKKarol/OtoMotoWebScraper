@@ -72,20 +72,22 @@ namespace WebScraper_01
                         var publicated = offerInfo[1].InnerText;
                         var href = CarOffer.QuerySelector("h2 a").Attributes["href"].Value;
 
-                        int price = 0;
-
                         if (properties[1].InnerText == offerInfo[1].InnerText)
                         {
                             publicated = "no data";
                         }
 
-                        carsModels.Add(new CarModel(name, price, year, mileage, engineSize, fuelType, localization, publicated, href));
+                        int price = 0;
+                        int horsePower = 0;
+                        string gearbox = "";
+
+                        carsModels.Add(new CarModel(name, price, year, mileage, engineSize, horsePower, gearbox, fuelType, localization, publicated, href));
                     }
                     catch (Exception)
                     {
                         continue;
                     }
-                    
+
                 }
                 NextPage(ref document, ref isNextPage, lastPageNumber, ref actualPageNumber);
                 actualPageNumber++;
@@ -97,6 +99,8 @@ namespace WebScraper_01
             for (int i = 0; i < carsBasicInfo.Count; i++)
             {
                 carsBasicInfo[i].Price = carsDetailsInfo[i].Price;
+                carsBasicInfo[i].HorsePower = carsDetailsInfo[i].HorsePower;
+                carsBasicInfo[i].Gearbox = carsDetailsInfo[i].Gearbox;
             }
         }
 
@@ -123,8 +127,10 @@ namespace WebScraper_01
                     Thread.Sleep(1000);
 
                     int pixelsFromBottom = 2000;
+
                     ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight - " + pixelsFromBottom + ")");
                     Thread.Sleep(1000);
+
                     ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight - " + pixelsFromBottom + ")");
                     Thread.Sleep(1000);
 
