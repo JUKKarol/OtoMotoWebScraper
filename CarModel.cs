@@ -9,19 +9,16 @@ namespace WebScraper_01
 {
     internal class CarModel
     {
-        public CarModel(string name, int price, int yearOfProduction, int mileageKM, double engineSize, int horsePower, string gearbox, string fuelType, string localization, string publicated, string link)
+        public CarModel(string name, int yearOfProduction, int mileageKM, double engineSize, string fuelType, string localization, string publicated, string link)
         {
             Name = name;
-            Price = price;
             YearOfProduction = yearOfProduction;
             MileageKM = mileageKM;
             EngineSize = engineSize;
-            Gearbox = gearbox;
             FuelType = fuelType;
             Localization = localization;
             Publicated = publicated;
             Link = link;
-            HorsePower = horsePower;
 
             if (yearOfProduction.ToString() == localization)
             {
@@ -40,6 +37,15 @@ namespace WebScraper_01
         public string Localization { get; set; }
         public string Publicated { get; set; }
         public string Link { get; set; }
+        public bool ElectricSeat { get; set; }
+        public bool HeatedSeats { get; set; }
+        public bool HeatedBackSeats { get; set; }
+        public bool MassagedSeats { get; set; }
+        public bool FullElectricWindows { get; set; }
+        public bool Bluetooth { get; set; }
+        public bool CruiseControl { get; set; }
+        public bool Parktronic { get; set; }
+        public bool MultiWheel { get; set; }
 
         public void CarInfo()
         {
@@ -54,6 +60,15 @@ namespace WebScraper_01
             Console.WriteLine($"Lokalizacja: {Localization}");
             Console.WriteLine($"{Publicated}");
             Console.WriteLine($"link: {Link}");
+            Console.WriteLine($"Elektryczne fotele: {ElectricSeat}");
+            Console.WriteLine($"Podgrzewane fotele: {HeatedSeats}");
+            Console.WriteLine($"Podgrzewane fotele tył: {HeatedBackSeats}");
+            Console.WriteLine($"Fotele z masażem: {MassagedSeats}");
+            Console.WriteLine($"Wszystkie szyby elektryczne: {FullElectricWindows}");
+            Console.WriteLine($"Bluetooth: {Bluetooth}");
+            Console.WriteLine($"Tempomat: {CruiseControl}");
+            Console.WriteLine($"Parktronic: {Parktronic}");
+            Console.WriteLine($"Kierownica multifunkcyjna: {MultiWheel}");
 
             Console.WriteLine("------------------");
         }

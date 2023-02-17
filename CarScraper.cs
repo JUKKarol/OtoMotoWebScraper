@@ -77,11 +77,7 @@ namespace WebScraper_01
                             publicated = "no data";
                         }
 
-                        int price = 0;
-                        int horsePower = 0;
-                        string gearbox = "";
-
-                        carsModels.Add(new CarModel(name, price, year, mileage, engineSize, horsePower, gearbox, fuelType, localization, publicated, href));
+                        carsModels.Add(new CarModel(name, year, mileage, engineSize, fuelType, localization, publicated, href));
                     }
                     catch (Exception)
                     {
@@ -101,6 +97,15 @@ namespace WebScraper_01
                 carsBasicInfo[i].Price = carsDetailsInfo[i].Price;
                 carsBasicInfo[i].HorsePower = carsDetailsInfo[i].HorsePower;
                 carsBasicInfo[i].Gearbox = carsDetailsInfo[i].Gearbox;
+                carsBasicInfo[i].ElectricSeat = carsDetailsInfo[i].ElectricSeat;
+                carsBasicInfo[i].HeatedSeats = carsDetailsInfo[i].HeatedSeats;
+                carsBasicInfo[i].HeatedBackSeats = carsDetailsInfo[i].HeatedBackSeats;
+                carsBasicInfo[i].MassagedSeats = carsDetailsInfo[i].MassagedSeats;
+                carsBasicInfo[i].FullElectricWindows = carsDetailsInfo[i].FullElectricWindows;
+                carsBasicInfo[i].Bluetooth = carsDetailsInfo[i].Bluetooth;
+                carsBasicInfo[i].CruiseControl = carsDetailsInfo[i].CruiseControl;
+                carsBasicInfo[i].Parktronic = carsDetailsInfo[i].Parktronic;
+                carsBasicInfo[i].MultiWheel = carsDetailsInfo[i].MultiWheel;
             }
         }
 

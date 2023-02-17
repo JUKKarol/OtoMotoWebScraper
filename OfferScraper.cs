@@ -26,6 +26,15 @@ namespace WebScraper_01
             int price;
             int horsePower;
             string gearbox;
+            bool electricSeat = false;
+            bool heatedSeats = false;
+            bool heatedBackSeats = false;
+            bool massagedSeats = false;
+            bool fullElectricWindows = false;
+            bool bluetooth = false;
+            bool cruiseControl = false;
+            bool parktronic = false;
+            bool multiWheel = false;
 
             var carScraper = new CarScraper();
             var carWeb = new HtmlWeb();
@@ -34,17 +43,62 @@ namespace WebScraper_01
             {
                 var carDocument = carWeb.Load(link);
                 var parametersTable = carDocument.QuerySelectorAll(".parametersArea li");
-                horsePower = int.Parse(Utilities.MileageTrim(parametersTable.Where(p => p.InnerText.Contains("Moc")).FirstOrDefault()?.InnerText));
-                gearbox = (parametersTable.Where(p => p.InnerText.Contains("Skrzynia")).FirstOrDefault()?.InnerText).Replace("Skrzynia biegów", "").Trim();
+                var equipmentTable = carDocument.QuerySelectorAll(".offer-features__row li");
 
                 price = int.Parse(Utilities.MileageTrim(carDocument.QuerySelector(".offer-price__number").InnerText));
                 if (carDocument.QuerySelector(".offer-price__currency").InnerText.Contains("EUR"))
                 {
-                    double priceDouble = Math.Round((price*4.8)/100, 0)*100;
+                    double priceDouble = Math.Round((price * 4.8) / 100, 0) * 100;
                     price = int.Parse(priceDouble.ToString());
                 }
 
+                horsePower = int.Parse(Utilities.MileageTrim(parametersTable.Where(p => p.InnerText.Contains("Moc")).FirstOrDefault()?.InnerText));
+                gearbox = (parametersTable.Where(p => p.InnerText.Contains("Skrzynia")).FirstOrDefault()?.InnerText).Replace("Skrzynia biegów", "").Trim();
 
+                if (equipmentTable.Any(node => node.InnerText.Contains("Elektrycznie ustawiany fotel kierowcy")))
+                {
+                    electricSeat = true;
+                }
+
+                if (equipmentTable.Any(node => node.InnerText.Contains("Podgrzewany fotel kierowcy")))
+                {
+                    heatedSeats = true;
+                }
+
+                if (equipmentTable.Any(node => node.InnerText.Contains("Ogrzewane siedzenia tylne")))
+                {
+                    heatedBackSeats = true;
+                }
+
+                if (equipmentTable.Any(node => node.InnerText.Contains("masaż")))
+                {
+                    massagedSeats = true;
+                }
+
+                if (equipmentTable.Any(node => node.InnerText.Contains("Elektryczne szyby tylne")))
+                {
+                    fullElectricWindows = true;
+                }
+
+                if (equipmentTable.Any(node => node.InnerText.Contains("Bluetooth")))
+                {
+                    bluetooth = true;
+                }
+
+                if (equipmentTable.Any(node => node.InnerText.Contains("Tempomat")))
+                {
+                    cruiseControl = true;
+                }
+
+                if (equipmentTable.Any(node => node.InnerText.Contains("park")))
+                {
+                    parktronic = true;
+                }
+
+                if (equipmentTable.Any(node => node.InnerText.Contains("Kierownica wielofunkcyjna")))
+                {
+                    multiWheel = true;
+                }
             }
             catch (Exception)
             {
@@ -53,8 +107,8 @@ namespace WebScraper_01
                 gearbox = "";
             }
 
-            
-            carsDetailsInfo.Add(new OfferModel(price, horsePower, gearbox));
+
+            carsDetailsInfo.Add(new OfferModel(price, horsePower, gearbox, electricSeat, heatedSeats, heatedBackSeats, massagedSeats, fullElectricWindows, bluetooth, cruiseControl, parktronic, multiWheel));
         }
     }
 }
