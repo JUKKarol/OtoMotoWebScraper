@@ -43,10 +43,16 @@ namespace WebScraper_01
                 Console.WriteLine("2. Średnie ceny samochodów spełniające podane parametry");
                 Console.WriteLine("3. Wycena samochodu");
                 Console.WriteLine("4. Export do pliku");
+                Console.WriteLine("X - wyjdź");
 
 
                 string userInputString = Console.ReadLine();
                 int userInput;
+                if (userInputString == "X")
+                {
+                    Console.WriteLine("Do zobaczenia!");
+                    return;
+                }
 
                 if (int.TryParse(userInputString, out userInput))
                 {
@@ -55,9 +61,31 @@ namespace WebScraper_01
                 else
                 {
                     Console.WriteLine("Podaj liczbę");
+                    continue;
                 }
 
+                switch (userInput)
+                {
+                    case 1:
+                        MenuOptions.ChcekPercentOfCarsAchieveParameters(carsBasicInfo);
+                        break;
 
+                    case 2:
+                        MenuOptions.ChcekAveragePriceOfCarsAchieveParameters(carsBasicInfo);
+                        break;
+
+                    case 3:
+                        MenuOptions.YourCarEstimate(carsBasicInfo);
+                        break;
+
+                    case 4:
+                        MenuOptions.ExpotToJSON(carsBasicInfo);
+                        break;
+
+                    default:
+                        Console.WriteLine("Podaj Liczbe 1-4");
+                        break;
+                }
             }
         }
     }

@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="CarScraper.cs" />
     <Compile Include="CarModel.cs" />
+    <Compile Include="MenuOptions.cs" />
     <Compile Include="OfferModel.cs" />
     <Compile Include="OfferScraper.cs" />
     <Compile Include="Program.cs" />
