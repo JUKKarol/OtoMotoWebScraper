@@ -22,7 +22,43 @@ namespace WebScraper_01
             carScraper.ShowCars(carsBasicInfo);
             Console.WriteLine($"Liczba aut: {carsBasicInfo.Count} w liście");
 
-            Console.ReadKey();
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("░█████╗░████████╗░█████╗░███╗░░░███╗░█████╗░████████╗░█████╗░");
+                Console.WriteLine("██╔══██╗╚══██╔══╝██╔══██╗████╗░████║██╔══██╗╚══██╔══╝██╔══██╗");
+                Console.WriteLine("██║░░██║░░░██║░░░██║░░██║██╔████╔██║██║░░██║░░░██║░░░██║░░██║");
+                Console.WriteLine("██║░░██║░░░██║░░░██║░░██║██║╚██╔╝██║██║░░██║░░░██║░░░██║░░██║");
+                Console.WriteLine("╚█████╔╝░░░██║░░░╚█████╔╝██║░╚═╝░██║╚█████╔╝░░░██║░░░╚█████╔╝");
+                Console.WriteLine("░╚════╝░░░░╚═╝░░░░╚════╝░╚═╝░░░░░╚═╝░╚════╝░░░░╚═╝░░░░╚════╝░");
+                Console.WriteLine();
+                Console.WriteLine("░██╗░░░░░░░██╗███████╗██████╗░░██████╗░█████╗░██████╗░░█████╗░██████╗░███████╗██████╗░");
+                Console.WriteLine("░██║░░██╗░░██║██╔════╝██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗");
+                Console.WriteLine("░╚██╗████╗██╔╝█████╗░░██████╦╝╚█████╗░██║░░╚═╝██████╔╝███████║██████╔╝█████╗░░██████╔╝");
+                Console.WriteLine("░░████╔═████║░██╔══╝░░██╔══██╗░╚═══██╗██║░░██╗██╔══██╗██╔══██║██╔═══╝░██╔══╝░░██╔══██╗");
+                Console.WriteLine("░░╚██╔╝░╚██╔╝░███████╗██████╦╝██████╔╝╚█████╔╝██║░░██║██║░░██║██║░░░░░███████╗██║░░██║");
+                Console.WriteLine("░░░╚═╝░░░╚═╝░░╚══════╝╚═════╝░╚═════╝░░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░░░░╚══════╝╚═╝░░╚═╝");
+
+                Console.WriteLine("1. Samochody spełniające podane paramtry (%)");
+                Console.WriteLine("2. Średnie ceny samochodów spełniające podane parametry");
+                Console.WriteLine("3. Wycena samochodu");
+                Console.WriteLine("4. Export do pliku");
+
+
+                string userInputString = Console.ReadLine();
+                int userInput;
+
+                if (int.TryParse(userInputString, out userInput))
+                {
+
+                }
+                else
+                {
+                    Console.WriteLine("Podaj liczbę");
+                }
+
+
+            }
         }
     }
 }
