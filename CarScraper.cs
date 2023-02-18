@@ -55,7 +55,7 @@ namespace WebScraper_01
                         var offerInfo = lists[2].QuerySelectorAll("li");
 
                         int year = int.Parse(properties[0].InnerText);
-                        int mileage = int.Parse(Utilities.MileageTrim(properties[1].InnerText));
+                        int mileage = int.Parse(Utilities.PrepareToIntParse(properties[1].InnerText));
                         double engineSize = double.Parse(Utilities.EngineTrim(properties[2].InnerText));
                         string fuelType = "";
 
@@ -131,15 +131,13 @@ namespace WebScraper_01
                     driver.FindElement(By.XPath("//div[contains(@role, 'alertdialog')]//button[contains(@id, 'accept')]")).Click();
                     Thread.Sleep(1000);
 
-                    int pixelsFromBottom = 2000;
-
-                    ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight - " + pixelsFromBottom + ")");
+                    IWebElement element = driver.FindElement(By.CssSelector("ul.pagination-list li[title*='Next'] svg"));
+                    IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+                    js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
+                    js.ExecuteScript("window.scrollBy(0, -300)");
                     Thread.Sleep(1000);
-
-                    ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight - " + pixelsFromBottom + ")");
-                    Thread.Sleep(1000);
-
                     driver.FindElement(By.CssSelector("ul.pagination-list li[title*='Next'] svg")).Click();
+
                     Thread.Sleep(1000);
                     string url = driver.Url;
                     BaseUrl = url;

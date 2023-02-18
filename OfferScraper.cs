@@ -45,14 +45,14 @@ namespace WebScraper_01
                 var parametersTable = carDocument.QuerySelectorAll(".parametersArea li");
                 var equipmentTable = carDocument.QuerySelectorAll(".offer-features__row li");
 
-                price = int.Parse(Utilities.MileageTrim(carDocument.QuerySelector(".offer-price__number").InnerText));
+                price = int.Parse(Utilities.PrepareToIntParse(carDocument.QuerySelector(".offer-price__number").InnerText));
                 if (carDocument.QuerySelector(".offer-price__currency").InnerText.Contains("EUR"))
                 {
                     double priceDouble = Math.Round((price * 4.8) / 100, 0) * 100;
                     price = int.Parse(priceDouble.ToString());
                 }
 
-                horsePower = int.Parse(Utilities.MileageTrim(parametersTable.Where(p => p.InnerText.Contains("Moc")).FirstOrDefault()?.InnerText));
+                horsePower = int.Parse(Utilities.PrepareToIntParse(parametersTable.Where(p => p.InnerText.Contains("Moc")).FirstOrDefault()?.InnerText));
                 gearbox = (parametersTable.Where(p => p.InnerText.Contains("Skrzynia")).FirstOrDefault()?.InnerText).Replace("Skrzynia biegów", "").Trim();
 
                 if (equipmentTable.Any(node => node.InnerText.Contains("Elektrycznie ustawiany fotel kierowcy")))

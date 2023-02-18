@@ -26,14 +26,14 @@ namespace WebScraper_01
             }
         }
 
-        public string Name{ get; set; }
+        public string Name { get; set; }
         public int Price { get; set; }
         public int YearOfProduction { get; set; }
-        public int MileageKM{ get; set; }
-        public double EngineSize{ get; set; }
-        public int HorsePower{ get; set; }
-        public string Gearbox{ get; set; }
-        public string FuelType{ get; set; }
+        public int MileageKM { get; set; }
+        public double EngineSize { get; set; }
+        public int HorsePower { get; set; }
+        public string Gearbox { get; set; }
+        public string FuelType { get; set; }
         public string Localization { get; set; }
         public string Publicated { get; set; }
         public string Link { get; set; }

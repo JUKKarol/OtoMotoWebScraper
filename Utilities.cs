@@ -194,7 +194,7 @@ namespace WebScraper_01
             }
         }
 
-        public static string MileageTrim(string input)
+        public static string PrepareToIntParse(string input)
         {
             input = input.Trim();
             input = Regex.Replace(input, @"[^\d]", string.Empty);
