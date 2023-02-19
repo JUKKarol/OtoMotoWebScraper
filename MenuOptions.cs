@@ -30,6 +30,10 @@ namespace WebScraper_01
             List<CarModel> filtredCars = FilterCars(cars, electricSeat, heatedSeats, heatedBackSeats, massagedSeats, fullElectricWindows, bluetooth, cruiseControl, parktronic, multiWheel, horsePowerMin, horsePowerMax);
 
             Utilities.ShowCars(filtredCars);
+
+            Console.WriteLine("--------------------");
+            double percentOfCarsThatAchieveParameters = Math.Round(((double)filtredCars.Count / cars.Count) * 100, 2);
+            Console.WriteLine($"{percentOfCarsThatAchieveParameters}% aut spełnia podane wyamgania");
             Console.ReadKey();
         }
 
@@ -52,6 +56,13 @@ namespace WebScraper_01
             List<CarModel> filtredCars = FilterCars(cars, electricSeat, heatedSeats, heatedBackSeats, massagedSeats, fullElectricWindows, bluetooth, cruiseControl, parktronic, multiWheel, horsePowerMin, horsePowerMax);
 
             Utilities.ShowCars(filtredCars);
+
+            int carsAvgPrice = Convert.ToInt32(Math.Round(cars.Average(car => car.Price)));
+            int filtredCarsAvgPrice = Convert.ToInt32(Math.Round(filtredCars.Average(car => car.Price)));
+
+            Console.WriteLine($"Średnia cena ogólnie: {carsAvgPrice}");
+            Console.WriteLine($"Średnia cena samochodu który spełnia podane wymagania: {filtredCarsAvgPrice}");
+
             Console.ReadKey();
         }
 
