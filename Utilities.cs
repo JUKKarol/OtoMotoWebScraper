@@ -26,7 +26,7 @@ namespace WebScraper_01
             driver.FindElement(By.XPath("//div[contains(@role, 'alertdialog')]//button[contains(@id, 'accept')]")).Click();
             IWebElement submitButton = driver.FindElement(By.XPath("//form//button[@data-testid='submit-btn']"));
 
-            
+
             IWebElement bodyTypeButton = driver.FindElement(By.XPath("//form//div[@id='filter_enum_body_type']//button"));
             bodyTypeButton.Click();
 
@@ -56,7 +56,7 @@ namespace WebScraper_01
 
                 }
             }
-            
+
 
             IWebElement brandButton = driver.FindElement(By.XPath("//form//div[@id='filter_enum_make']//button"));
             brandButton.Click();
@@ -160,7 +160,7 @@ namespace WebScraper_01
                 }
                 catch (Exception)
                 {
-                    
+
                 }
             }
 
@@ -218,5 +218,15 @@ namespace WebScraper_01
             }
         }
 
+        public static void ShowCars(List<CarModel> carsModels)
+        {
+            int i = 1;
+            foreach (var CarOffer in carsModels)
+            {
+                Console.WriteLine($"Number: {i}");
+                i++;
+                CarOffer.CarInfo();
+            }
+        }
     }
 }

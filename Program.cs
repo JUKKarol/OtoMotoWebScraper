@@ -19,7 +19,7 @@ namespace WebScraper_01
             carScraper.GetCars(ref carsBasicInfo);
             offerScraper.GetOffers(carsBasicInfo, ref carsDetailsInfo);
             carScraper.Merge(ref carsBasicInfo, carsDetailsInfo);
-            carScraper.ShowCars(carsBasicInfo);
+            Utilities.ShowCars(carsBasicInfo);
             Console.WriteLine($"Liczba aut: {carsBasicInfo.Count} w liście");
 
             while (true)

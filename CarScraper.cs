@@ -162,16 +162,5 @@ namespace WebScraper_01
                 isPageNext = false;
             }
         }
-
-        public void ShowCars(List<CarModel> carsModels)
-        {
-            int i = 1;
-            foreach (var CarOffer in carsModels)
-            {
-                Console.WriteLine($"Number: {i}");
-                i++;
-                CarOffer.CarInfo();
-            }
-        }
     }
 }
