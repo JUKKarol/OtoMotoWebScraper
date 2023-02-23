@@ -41,8 +41,7 @@ namespace WebScraper_01
 
                 Console.WriteLine("1. Samochody spełniające podane paramtry (%)");
                 Console.WriteLine("2. Średnie ceny samochodów spełniające podane parametry");
-                Console.WriteLine("3. Wycena samochodu");
-                Console.WriteLine("4. Export do pliku");
+                Console.WriteLine("3. Export do pliku");
                 Console.WriteLine("X - wyjdź");
 
 
@@ -75,15 +74,11 @@ namespace WebScraper_01
                         break;
 
                     case 3:
-                        MenuOptions.YourCarEstimate(carsBasicInfo);
-                        break;
-
-                    case 4:
                         MenuOptions.ExpotToJSON(carsBasicInfo);
                         break;
 
                     default:
-                        Console.WriteLine("Podaj Liczbe 1-4");
+                        Console.WriteLine("Podaj Liczbe 1-3");
                         break;
                 }
             }

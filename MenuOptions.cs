@@ -66,11 +66,6 @@ namespace WebScraper_01
             Console.ReadKey();
         }
 
-        public static void YourCarEstimate(List<CarModel> cars)
-        {
-
-        }
-
         public static void ExpotToJSON(List<CarModel> cars)
         {
             var json = JsonConvert.SerializeObject(cars);
